@@ -1,0 +1,275 @@
+-- Testbench File for MAX(R) 10 FPGA Evaluation Kit or Intel(R) Cyclone(R) 10 LP FPGA Evaluation Kit ##
+
+library ieee;
+use ieee.std_logic_1164.all;
+use ieee.numeric_std.all;
+
+library modelsim_lib;
+use modelsim_lib.util.all;
+
+entity output_tb is
+
+end output_tb;
+
+architecture rtl of output_tb is
+
+    COMPONENT Distribute
+    PORT(
+         CLK : IN  std_logic;
+         byte_in : IN  std_logic;
+         q_in : IN  std_logic_vector(7 downto 0);
+         set_out : OUT  std_logic;
+         flag_out : OUT  std_logic;
+         state_out : OUT  std_logic;
+         data_out : OUT  std_logic_vector(7 downto 0);
+         address : OUT  std_logic_vector(7 downto 0);
+         debug_led : OUT  std_logic_vector(7 downto 0)
+        );
+    END COMPONENT;
+	 
+	Component AllChannels
+   generic(NBLOCKS: integer := 256);	
+	port (
+		clk : in  STD_LOGIC;
+		clk_8 : in  STD_LOGIC;
+		counter : in std_logic_vector(8 downto 0);
+		data_in : in std_logic_vector(7 downto 0);
+		set : in  STD_LOGIC;
+		flag : in  STD_LOGIC;
+		state : in  STD_LOGIC;
+		address : in std_logic_vector(7 downto 0); --256 different address for the pulse / duty blocks
+		data_out : out std_logic_vector(31 downto 0)
+		);
+	end component;
+	 
+	Component Counter
+		generic(COUNTER_BITS: integer := 9);
+		port (
+			clk_8 : in  STD_LOGIC;
+			count: out STD_LOGIC_VECTOR (COUNTER_BITS-1 downto 0)
+		);
+	end component;
+
+	component Masterclock is
+		port (
+			inclk0 : in  std_logic;
+			c0 	 : out std_logic;
+			c1		 : out std_logic );
+	end component;
+
+   --Inputs
+	signal clk : std_logic := '0';
+   signal clk_8 : std_logic := '0';
+   signal nclk_8 : std_logic := '0';
+   signal byte_in : std_logic := '0';
+   signal q_in : std_logic_vector(7 downto 0) := (others => '0');
+	signal rst : std_logic := '0';
+	
+ 	--Outputs
+   signal set : std_logic;
+   signal flag : std_logic;
+   signal state : std_logic;
+   signal dist_data : std_logic_vector(7 downto 0);
+   signal address : std_logic_vector(7 downto 0);
+   signal debug_led : std_logic_vector(7 downto 0);
+
+   signal count : std_logic_vector(8 downto 0);
+   signal data_out : std_logic_vector(31 downto 0);
+
+   -- Clock period definitions
+   constant CLK_period : time := 20 ns;
+
+
+begin
+
+	-- Instantiate the Unit Under Test (UUT)
+   uut1: Distribute 
+		PORT MAP (
+          clk => clk,
+          byte_in => byte_in,
+          q_in => q_in,
+          set_out => set,
+          flag_out => flag,
+          state_out => state,
+          data_out => dist_data,
+          address => address,
+          debug_led => debug_led
+		);
+		  
+   uut2: AllChannels
+	   generic map (
+			NBLOCKS => 256
+		)
+		PORT MAP (
+			clk => clk,
+			clk_8 => clk_8,
+			counter => count,
+			data_in => dist_data,
+			set => set,
+			flag => flag,
+			state => state,
+			address => address,
+			data_out => data_out
+		);
+
+	uut3: Counter 
+	   generic map (
+			COUNTER_BITS => 9
+		)
+		PORT MAP (
+			clk_8 => clk_8,
+			count => count
+		);
+	
+	uut4 : Masterclock 
+		port map (
+			inclk0 => clk,
+			c0		 => clk_8,
+			c1		 => nclk_8 );
+
+			
+	-- Clock process definitions
+   CLK_process :process
+   begin
+		clk <= '0';
+		wait for CLK_period/2;
+		clk <= '1';
+		wait for CLK_period/2;
+   end process;
+ 
+   -- Stimulus process
+   stim_proc: process
+   begin		
+      -- hold reset state for 100 ns.
+      wait for 100 ns;	
+		rst <= '1';
+		wait for CLK_period;
+		rst <= '0';
+      wait for CLK_period*10;
+		q_in <= "11111111";
+		byte_in <= '1';
+		wait for CLK_period*50;
+		q_in <= "00000000";
+		byte_in <= '0';
+		wait for CLK_period*50;
+		q_in <= "00000000";
+		byte_in <= '1';
+		wait for CLK_period*50;
+		q_in <= "00000000";
+		byte_in <= '0';
+		wait for CLK_period*50;
+		q_in <= "00000001";
+		byte_in <= '1';
+		wait for CLK_period*50;
+		q_in <= "00000000";
+		byte_in <= '0';
+		wait for CLK_period*50;
+		q_in <= "00000010";
+		byte_in <= '1';
+		wait for CLK_period*50;
+		q_in <= "00000000";
+		byte_in <= '0';
+		wait for CLK_period*50;
+		q_in <= "00000011";
+		byte_in <= '1';
+		wait for CLK_period*50;
+		q_in <= "00000000";
+		byte_in <= '0';
+		wait for CLK_period*50;
+		q_in <= "00000100";
+		byte_in <= '1';
+		wait for CLK_period*50;
+		q_in <= "00000000";
+		byte_in <= '0';
+		wait for CLK_period*50;
+		q_in <= "00000101";
+		byte_in <= '1';
+		wait for CLK_period*50;
+		q_in <= "00000000";
+		byte_in <= '0';
+		wait for CLK_period*50;
+		q_in <= "00000110";
+		byte_in <= '1';
+		wait for CLK_period*50;
+		q_in <= "00000000";
+		byte_in <= '0';
+		wait for CLK_period*50;
+		q_in <= "00000111";
+		byte_in <= '1';
+		wait for CLK_period*50;
+		q_in <= "00000000";
+		byte_in <= '0';
+		wait for CLK_period*50;
+		q_in <= "00001000";
+		byte_in <= '1';
+		wait for CLK_period*50;
+		q_in <= "00000000";
+		byte_in <= '0';
+		wait for CLK_period*50;
+		q_in <= "00001001";
+		byte_in <= '1';
+		wait for CLK_period*50;
+		q_in <= "00000000";
+		byte_in <= '0';
+		wait for CLK_period*50;
+		q_in <= "00001010";
+		byte_in <= '1';
+		wait for CLK_period*50;
+		q_in <= "00000000";
+		byte_in <= '0';
+		wait for CLK_period*50;
+		q_in <= "00001011";
+		byte_in <= '1';
+		wait for CLK_period*50;
+		q_in <= "00000000";
+		byte_in <= '0';
+		wait for CLK_period*50;
+		q_in <= "00001100";
+		byte_in <= '1';
+		wait for CLK_period*50;
+		q_in <= "00000000";
+		byte_in <= '0';
+		wait for CLK_period*50;
+		q_in <= "00001101";
+		byte_in <= '1';
+		wait for CLK_period*50;
+		q_in <= "00000000";
+		byte_in <= '0';
+		wait for CLK_period*50;
+		q_in <= "00001110";
+		byte_in <= '1';
+		wait for CLK_period*50;
+		q_in <= "00000000";
+		byte_in <= '0';
+		wait for CLK_period*50;
+		q_in <= "00001111";
+		byte_in <= '1';
+		wait for CLK_period*50;
+		q_in <= "00000000";
+		byte_in <= '0';
+		
+      wait for CLK_period*50;
+		q_in <= "11111110";
+		byte_in <= '1';
+		wait for CLK_period*50;
+		q_in <= "00000000";
+		byte_in <= '0';
+		wait for CLK_period*50;
+		q_in <= "00010000";
+		byte_in <= '1';
+		wait for CLK_period*50;
+		q_in <= "00000000";
+		byte_in <= '0';
+		
+		
+		wait for CLK_period*50;
+		q_in <= "11111101";
+		byte_in <= '1';
+		wait for CLK_period*50;
+		q_in <= "00000000";
+		byte_in <= '0';
+
+      wait;
+   end process;
+	
+end rtl;

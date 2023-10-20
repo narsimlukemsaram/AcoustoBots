@@ -1,0 +1,16 @@
+Fitter Status : Successful - Thu Sep 07 19:07:50 2023
+Quartus Prime Version : 18.1.0 Build 625 09/12/2018 SJ Lite Edition
+Revision Name : AmpModulator
+Top-level Entity Name : top
+Family : Cyclone IV E
+Device : EP4CE6E22C8
+Timing Models : Final
+Total logic elements : 4,886 / 6,272 ( 78 % )
+    Total combinational functions : 2,505 / 6,272 ( 40 % )
+    Dedicated logic registers : 4,724 / 6,272 ( 75 % )
+Total registers : 4724
+Total pins : 77 / 92 ( 84 % )
+Total virtual pins : 0
+Total memory bits : 0 / 276,480 ( 0 % )
+Embedded Multiplier 9-bit elements : 0 / 30 ( 0 % )
+Total PLLs : 1 / 2 ( 50 % )

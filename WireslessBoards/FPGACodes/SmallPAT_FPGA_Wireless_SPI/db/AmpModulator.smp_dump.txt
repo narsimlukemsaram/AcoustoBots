@@ -1,0 +1,7 @@
+
+State Machine - |top|DataDistributor:inst_DataDistributor|state
+Name state.Swapping state.ReadAmplitudes state.ReadPhases state.Idle 
+state.Idle 0 0 0 0 
+state.ReadPhases 0 0 1 1 
+state.ReadAmplitudes 0 1 0 1 
+state.Swapping 1 0 0 1 
