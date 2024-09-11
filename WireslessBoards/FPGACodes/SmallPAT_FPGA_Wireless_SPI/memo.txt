@@ -1,2 +1,0 @@
-Assignments -> Device -> Device and Pin Options -> Dual-Purpose Pins
-	Use as programming pin => Use as Regular I/O

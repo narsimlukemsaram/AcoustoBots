@@ -1,0 +1,9 @@
+﻿  UDPDriver.cpp
+C:\UCL\SSM\AcoustoBots\AcoustoBot_Server_PC\WirelessBoard\AsierInhoUDP\src\UDPDriver.cpp(20,29): warning C4267: 'return': conversion from 'size_t' to 'unsigned int', possible loss of data
+  AcoustoBots_GSPAT_FocalPoint_Circle_Hinge_Bead_PhaseSpace.cpp
+C:\UCL\SSM\AcoustoBots\AcoustoBot_Server_PC\WirelessBoard\WirelessBoard\AcoustoBots_GSPAT_FocalPoint_Circle_Hinge_Bead_PhaseSpace.cpp(156,18): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\UCL\SSM\AcoustoBots\AcoustoBot_Server_PC\WirelessBoard\WirelessBoard\AcoustoBots_GSPAT_FocalPoint_Circle_Hinge_Bead_PhaseSpace.cpp(157,17): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\UCL\SSM\AcoustoBots\AcoustoBot_Server_PC\WirelessBoard\WirelessBoard\AcoustoBots_GSPAT_FocalPoint_Circle_Hinge_Bead_PhaseSpace.cpp(347,17): warning C4326: return type of 'main' should be 'int' instead of 'void'
+C:\UCL\SSM\AcoustoBots\AcoustoBot_Server_PC\WirelessBoard\WirelessBoard\AcoustoBots_GSPAT_FocalPoint_Circle_Hinge_Bead_PhaseSpace.cpp(451,16): warning C4305: 'initializing': truncation from 'double' to 'float'
+  Generating Code...
+  WirelessBoard.vcxproj -> C:\UCL\SSM\AcoustoBots\AcoustoBot_Server_PC\WirelessBoard\x64\Debug\WirelessBoard.exe
