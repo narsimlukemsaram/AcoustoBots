@@ -1,6 +1,6 @@
 ## AcoustoBots: A Swarm of Robots for Acoustophoretic Multimodal Interactions
 
-![AcoustoBots.tiff](AcoustoBots_Images/AcoustoBots.tiff)
+![AcoustoBots.png](AcoustoBots_Images/AcoustoBots.png)
 
 Acoustophoresis has enabled novel interaction capabilities, such as levitation, volumetric displays, mid-air haptic feedback, and directional sound generation, to open new forms of multimodal interactions. However, its traditional implementation as a singular static unit limits its dynamic range and application versatility. 
 
